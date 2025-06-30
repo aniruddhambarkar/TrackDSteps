@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TrackDSteps.iml" filepath="$PROJECT_DIR$/.idea/modules/TrackDSteps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.unitTest.iml" />
     </modules>
   </component>
 </project>

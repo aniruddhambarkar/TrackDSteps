@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    kotlin("kapt")
 }
 
 android {
@@ -50,6 +52,13 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.connect.client.v110alpha11)
+    implementation(libs.live.event)
+//    implementation(libs.dagger)
+//    kapt(libs.dagger)
+    implementation("com.google.dagger:dagger:2.51.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+    kapt("com.google.dagger:dagger-compiler:2.51.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
