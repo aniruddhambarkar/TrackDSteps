@@ -2,6 +2,7 @@ package com.aniruddhambarkar.trackdsteps
 
 import android.health.connect.HealthPermissions.READ_DISTANCE
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 viewModel.loadStepsDetails()
             } else {
                 // Lack of required permissions
-
+                Log.v("MainActivity","Required permissions are missing")
             }
         }
 
@@ -85,7 +86,6 @@ class MainActivity : ComponentActivity() {
         viewModel.greetings.observe(this) {
 
         }
-
 
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -161,6 +161,7 @@ fun StepsData(stepsData: StepsSummary?) {
         )
         }
 
+
     }
 
 @Preview(showBackground = true)
@@ -176,4 +177,5 @@ val PERMISSIONS = setOf(
     HealthPermission.getReadPermission(ExerciseSessionRecord::class),
     HealthPermission.getWritePermission(ExerciseSessionRecord::class),
     HealthPermission.getReadPermission((DistanceRecord::class))
+//            HealthPermission.getReadPermission((ActivitySegmentRecord::class))
 )

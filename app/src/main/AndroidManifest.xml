@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.health.READ_STEPS"/>
     <uses-permission android:name="android.permission.health.WRITE_STEPS"/>
+    <uses-permission android:name="android.permission.health.READ_HEALTH_DATA" />
+    <uses-permission android:name="android.permission.health.WRITE_HEALTH_DATA" />
+    <uses-permission android:name="android.permission.health.READ_EXERCISE" />
+    <uses-permission android:name="android.permission.health.WRITE_EXERCISE" />
+    <uses-permission android:name="android.permission.health.READ_DISTANCE" />
+    <uses-permission android:name="android.permission.health.READ_ACTIVITY_SEGMENT" />
+    <uses-permission android:name="android.permission.health.WRITE_ACTIVITY_SEGMENT" />
+
 
     <application
         android:allowBackup="true"
@@ -10,6 +18,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".TrackDStepsApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackDSteps"

@@ -11,6 +11,7 @@ import com.aniruddhambarkar.trackdsteps.health.models.StepsSummary
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 // TODO
@@ -22,10 +23,13 @@ import javax.inject.Inject
 
 class HealthService @Inject constructor(var healthConnectClient: HealthConnectClient) : IHealthService {
 
+    val TAG : String ="HealthService"
+
     override suspend fun readSteps(): StepsSummary {
         val timeNow= LocalDateTime.now()
         val dayStart = LocalDateTime.now()
         val timeStartOfDay = dayStart.withHour(0).withMinute(0).withSecond(0)
+
         val count = readStepsFromHealthConnect(
                 timeStartOfDay,
                 timeNow
@@ -62,7 +66,36 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
         return summary
     }
 
-    override suspend fun readExerciseSessions(){
+
+    override suspend fun readExerciseSessions() {
+        val timeNow= LocalDateTime.now()
+        val dayStart = LocalDateTime.now()
+        val timeStartOfDay = dayStart.withHour(0).withMinute(0).withSecond(0)
+
+        val request = ReadRecordsRequest(
+            recordType = ExerciseSessionRecord::class,
+            timeRangeFilter = TimeRangeFilter.between(
+                timeStartOfDay, // Last 24 hours
+                timeNow
+            )
+        )
+
+
+        val response = healthConnectClient.readRecords(request)
+        response.records.forEach { session ->
+            Log.v(TAG, "Type: ${session.exerciseType}, " +
+                    "Start: ${session.startTime}, End: ${session.endTime}, "
+                    )
+        }
+
+        if(response.records.isEmpty()){
+            Log.v(TAG, "No exercise sessions found  for $dayStart" )
+        }
+
+
+    }
+
+    override suspend fun readExerciseDistanceSessions() {
 
         val timeNow= LocalDateTime.now()
         val dayStart = LocalDateTime.now()
@@ -78,21 +111,11 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
             )
         ).records
 
-        val steps = healthConnectClient.readRecords(
-            ReadRecordsRequest(
-                recordType = StepsRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(
-                    timeStartOfDay, // Last 24 hours
-                    timeNow
-                )
-            )
-        ).records
-
-        steps.forEach { stepRecord ->
+        exerciseSessions.forEach { stepRecord ->
             val activityType = exerciseSessions.find { session ->
                 stepRecord.startTime >= session.startTime &&
                         stepRecord.endTime <= session.endTime
-            }?.metadata?.device?.type
+            }?.metadata?.recordingMethod
 
             var covered = exerciseSessions.find { session ->
                 stepRecord.startTime >= session.startTime &&
@@ -107,7 +130,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
                 else -> "Unknown"
             }
 
-            println("Steps Distance: ${stepRecord.count}, Type: $activity")
+            println("Steps Activity, Type: $activity")
         }
         var distance = 0.0;
         exerciseSessions?.forEach {
@@ -127,4 +150,5 @@ interface IHealthService {
         endTime: LocalDateTime
     ): StepsSummary
     suspend fun readExerciseSessions()
+    suspend fun readExerciseDistanceSessions()
 }

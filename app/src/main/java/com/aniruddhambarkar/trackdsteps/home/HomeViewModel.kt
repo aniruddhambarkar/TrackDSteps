@@ -1,5 +1,6 @@
 package com.aniruddhambarkar.trackdsteps.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -54,6 +55,12 @@ class HomeViewModel @Inject constructor(var healthService: IHealthService) :  IH
 
         viewModelScope.launch {
             val count = healthService.readExerciseSessions()
+            Log.v("MainActivity","${count}")
+        }
+
+        viewModelScope.launch {
+            val count = healthService.readExerciseDistanceSessions()
+            Log.v("MainActivity","${count}")
         }
 
     }
