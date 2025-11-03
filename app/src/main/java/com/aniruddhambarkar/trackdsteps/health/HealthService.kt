@@ -5,6 +5,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.aniruddhambarkar.trackdsteps.health.models.StepsSummary
@@ -26,15 +27,38 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
     val TAG : String ="HealthService"
 
     override suspend fun readSteps(): StepsSummary {
-        val timeNow= LocalDateTime.now()
+//        val timeNow= LocalDateTime.now()
         val dayStart = LocalDateTime.now()
         val timeStartOfDay = dayStart.withHour(0).withMinute(0).withSecond(0)
-
+        val timeNow = LocalDateTime.now().plusDays(1)
         val count = readStepsFromHealthConnect(
                 timeStartOfDay,
                 timeNow
             )
-        return count
+
+        val aggregateRequest = AggregateRequest(
+            metrics = setOf(StepsRecord.COUNT_TOTAL),
+            timeRangeFilter = TimeRangeFilter.between(timeStartOfDay, timeNow)
+        )
+        val aggregateResponse = healthConnectClient.aggregate(aggregateRequest)
+        val totalSteps = aggregateResponse[StepsRecord.COUNT_TOTAL] ?: 0L
+
+
+        val aggregateDistanceRequest = AggregateRequest(
+            metrics = setOf(DistanceRecord.DISTANCE_TOTAL),
+            timeRangeFilter = TimeRangeFilter.between(timeStartOfDay, timeNow)
+        )
+        val aggregateDistanceResponse = healthConnectClient.aggregate(aggregateDistanceRequest)
+        val aggregateDistance = aggregateDistanceResponse[DistanceRecord.DISTANCE_TOTAL]
+
+
+        var summary = StepsSummary(totalSteps).also {
+            it.duration = 0
+            it.distance = aggregateDistance?.inKilometers?:0.0
+        }
+
+        Log.v("HealthService","Steps count aggregated $totalSteps $aggregateDistance")
+        return summary
     }
 
     override suspend fun readStepsFromHealthConnect(
@@ -83,7 +107,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
 
         val response = healthConnectClient.readRecords(request)
         response.records.forEach { session ->
-            Log.v(TAG, "Type: ${session.exerciseType}, " +
+            Log.v(TAG, "Reading activity Type: ${session.exerciseType}, " +
                     "Start: ${session.startTime}, End: ${session.endTime}, "
                     )
         }
@@ -95,7 +119,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
 
     }
 
-    override suspend fun readExerciseDistanceSessions() {
+    override suspend fun readExerciseDistanceSessions(): Double {
 
         val timeNow= LocalDateTime.now()
         val dayStart = LocalDateTime.now()
@@ -138,6 +162,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
         }
 
         println("Total Distance $distance")
+        return distance
     }
 }
 
@@ -150,5 +175,5 @@ interface IHealthService {
         endTime: LocalDateTime
     ): StepsSummary
     suspend fun readExerciseSessions()
-    suspend fun readExerciseDistanceSessions()
+    suspend fun readExerciseDistanceSessions(): Double
 }

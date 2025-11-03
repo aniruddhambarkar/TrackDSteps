@@ -23,6 +23,9 @@ class HomeViewModel @Inject constructor(var healthService: IHealthService) :  IH
     private val stepsState = MutableLiveData<StepsSummary>()
     var steps: LiveData<StepsSummary> = stepsState
 
+    private  val distanceState = MutableLiveData<Double>()
+    var distance: LiveData<Double> = distanceState
+
 //    LiveEvent<String>()
 
 
@@ -59,8 +62,9 @@ class HomeViewModel @Inject constructor(var healthService: IHealthService) :  IH
         }
 
         viewModelScope.launch {
-            val count = healthService.readExerciseDistanceSessions()
-            Log.v("MainActivity","${count}")
+            val distance = healthService.readExerciseDistanceSessions()
+            Log.v("MainActivity distance","${distance}")
+            distanceState.postValue(distance)
         }
 
     }

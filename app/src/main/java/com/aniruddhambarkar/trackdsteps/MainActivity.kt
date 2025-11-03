@@ -80,11 +80,8 @@ class MainActivity : ComponentActivity() {
         }
 
         (application as TrackDStepsApp).appComponent.inject(this)
-
-//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.loadGreetings()
         viewModel.greetings.observe(this) {
-
         }
 
 
@@ -151,12 +148,12 @@ fun StepsData(stepsData: StepsSummary?) {
                 color = WHITE
             )
             Text(
-            text = "Duration : ${stepsData?.duration?.div(60)?.div(60)} Minutes",
-            modifier = Modifier.padding(16.0.dp, top = 10.0.dp),
+            text = "Distance : ${String.format("%.2f", stepsData?.distance ?: 0.0)} KM",
+            modifier = Modifier.padding(16.0.dp, top = 10.0.dp, bottom = 5.0.dp),
             fontFamily = FontFamily.Monospace,
             fontSize = 16.0.sp,
             fontWeight = FontWeight.Bold,
-            lineHeight = 33.0.sp,
+            lineHeight = 26.0.sp,
             color = WHITE
         )
         }
