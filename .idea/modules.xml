@@ -7,6 +7,24 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TrackDSteps.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidDeviceTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidDeviceTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidHostTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidHostTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.androidMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.appleMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.appleMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.appleTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.appleTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosArm64Main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosArm64Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosArm64Test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosArm64Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosSimulatorArm64Main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosSimulatorArm64Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosSimulatorArm64Test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosSimulatorArm64Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosX64Main.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosX64Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosX64Test.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.iosX64Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.nativeMain.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.nativeMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.nativeTest.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/TrackDSteps.shared.nativeTest.iml" />
     </modules>
   </component>
 </project>

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-parcelize")
 
     kotlin("kapt")
 }
@@ -53,6 +54,14 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.connect.client.v110alpha11)
     implementation(libs.live.event)
+    implementation(libs.splash.screen)
+    implementation(libs.play.services.auth)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5") // Check for the latest version
+    implementation(libs.androidx.constraintlayout)
+
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+
+//    implementation(file("libs/samsung-health-data-api-1.0.0.aar"))
 //    implementation(libs.dagger)
 //    kapt(libs.dagger)
     implementation("com.google.dagger:dagger:2.51.1")

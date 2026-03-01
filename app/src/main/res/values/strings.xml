@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TrackDSteps</string>
+    <string name="app_name">Step&amp;Pace</string>
+    <string name="steps">Steps</string>
 </resources>

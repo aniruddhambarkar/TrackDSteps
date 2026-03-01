@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.test.ext:junit:1.1.5" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="androidx.test.ext" artifactId="junit" version="1.1.5" baseVersion="1.1.5" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/8.10.2/transforms/54e50ba18d9d34b9624906b4256d1dbe/transformed/junit-1.1.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/8.10.2/transforms/54e50ba18d9d34b9624906b4256d1dbe/transformed/junit-1.1.5/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

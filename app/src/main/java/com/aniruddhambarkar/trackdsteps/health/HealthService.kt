@@ -5,29 +5,28 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.DistanceRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.StepsRecord
+import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.request.AggregateRequest
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
-import com.aniruddhambarkar.trackdsteps.health.models.StepsSummary
+import com.aniruddhambarkar.trackdsteps.health.models.WorkoutSummary
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 import javax.inject.Inject
 
-// TODO
 //👉 Calculate step duration
 //
 //👉 Distinguish between walking and running
 //
 //👉 Estimate calories burned
 
-class HealthService @Inject constructor(var healthConnectClient: HealthConnectClient) : IHealthService {
+class HealthService @Inject constructor(var healthConnectClient: HealthConnectClient) :
+    IHealthService {
 
     val TAG : String ="HealthService"
 
-    override suspend fun readSteps(): StepsSummary {
-//        val timeNow= LocalDateTime.now()
+    override suspend fun readSteps(): WorkoutSummary {
         val dayStart = LocalDateTime.now()
         val timeStartOfDay = dayStart.withHour(0).withMinute(0).withSecond(0)
         val timeNow = LocalDateTime.now().plusDays(1)
@@ -35,6 +34,11 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
                 timeStartOfDay,
                 timeNow
             )
+
+        val aggregateRequest1 = AggregateRequest(
+            metrics = setOf(StepsRecord.COUNT_TOTAL),
+            timeRangeFilter = TimeRangeFilter.between(timeStartOfDay, timeNow)
+        )
 
         val aggregateRequest = AggregateRequest(
             metrics = setOf(StepsRecord.COUNT_TOTAL),
@@ -52,7 +56,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
         val aggregateDistance = aggregateDistanceResponse[DistanceRecord.DISTANCE_TOTAL]
 
 
-        var summary = StepsSummary(totalSteps).also {
+        var summary = WorkoutSummary(totalSteps).also {
             it.duration = 0
             it.distance = aggregateDistance?.inKilometers?:0.0
         }
@@ -64,7 +68,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
     override suspend fun readStepsFromHealthConnect(
         startTime: LocalDateTime,
         endTime: LocalDateTime
-    ): StepsSummary {
+    ): WorkoutSummary {
         var stepsCount = 0L
         var duration= 0L
         val response =
@@ -84,7 +88,7 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
         }
 
         Log.v("FitService", "Read energy for steps ${stepsCount}")
-        var summary = StepsSummary(stepsCount).also {
+        var summary = WorkoutSummary(stepsCount).also {
             it.duration = duration
         }
         return summary
@@ -116,6 +120,30 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
             Log.v(TAG, "No exercise sessions found  for $dayStart" )
         }
 
+
+        val aggregateRequest = AggregateRequest(
+            metrics = setOf(WeightRecord.WEIGHT_AVG),
+            timeRangeFilter = TimeRangeFilter.between(timeStartOfDay, timeNow)
+        )
+
+        val weightRequest = ReadRecordsRequest(
+            recordType = WeightRecord::class,
+            timeRangeFilter = TimeRangeFilter.between(
+                timeStartOfDay, // Last 24 hours
+                timeNow
+            )
+        )
+
+        val result = healthConnectClient.readRecords(weightRequest)
+
+        if(result.records.isEmpty()){
+            Log.v(TAG, "No exercise sessions found  for $dayStart" )
+        }
+        val aggres = healthConnectClient.aggregate(aggregateRequest)
+
+        if(aggres!=null){
+            Log.v(TAG, "No exercise sessions found  for $dayStart" )
+        }
 
     }
 
@@ -167,13 +195,12 @@ class HealthService @Inject constructor(var healthConnectClient: HealthConnectCl
 }
 
 
-
 interface IHealthService {
-    suspend fun readSteps() : StepsSummary
+    suspend fun readSteps() : WorkoutSummary
     suspend fun readStepsFromHealthConnect(
         startTime: LocalDateTime,
         endTime: LocalDateTime
-    ): StepsSummary
+    ): WorkoutSummary
     suspend fun readExerciseSessions()
     suspend fun readExerciseDistanceSessions(): Double
 }

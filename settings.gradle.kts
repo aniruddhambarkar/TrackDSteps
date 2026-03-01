@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TrackDSteps"
 include(":app")
+include(":shared")
